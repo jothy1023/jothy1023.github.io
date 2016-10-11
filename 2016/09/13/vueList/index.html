@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Vue 实现列表分页、搜索、批量操作 | Jothy AdoreLife..</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文仅讲解如何使用 Vue 创建一个实现分页、搜索、批量操作的列表组件，所以只提供此小组件的代码及说明，不提供其之外的代码或配置
+
+使用到的技术或框架
+
+Vue.js (2.0) 一套基于 MVVM 的 progressive framework，可以帮助我们迅速搭建用户界面
+semantic UI 一套漂亮的 UI 框架
+localStorage HTML5 的本地存储 API 之一（另一个为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue 实现列表分页、搜索、批量操作">
+<meta property="og:url" content="https://jothy1023.github.io/2016/09/13/vueList/index.html">
+<meta property="og:site_name" content="Jothy AdoreLife..">
+<meta property="og:description" content="本文仅讲解如何使用 Vue 创建一个实现分页、搜索、批量操作的列表组件，所以只提供此小组件的代码及说明，不提供其之外的代码或配置
+
+使用到的技术或框架
+
+Vue.js (2.0) 一套基于 MVVM 的 progressive framework，可以帮助我们迅速搭建用户界面
+semantic UI 一套漂亮的 UI 框架
+localStorage HTML5 的本地存储 API 之一（另一个为">
+<meta property="og:image" content="https://jothy1023.github.io/../../../../assets/pic1.png">
+<meta property="og:image" content="https://jothy1023.github.io/../../../../assets/pic2.png">
+<meta property="og:updated_time" content="2016-10-11T07:34:36.015Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue 实现列表分页、搜索、批量操作">
+<meta name="twitter:description" content="本文仅讲解如何使用 Vue 创建一个实现分页、搜索、批量操作的列表组件，所以只提供此小组件的代码及说明，不提供其之外的代码或配置
+
+使用到的技术或框架
+
+Vue.js (2.0) 一套基于 MVVM 的 progressive framework，可以帮助我们迅速搭建用户界面
+semantic UI 一套漂亮的 UI 框架
+localStorage HTML5 的本地存储 API 之一（另一个为">
+<meta name="twitter:image" content="https://jothy1023.github.io/../../../../assets/pic1.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Jothy AdoreLife.." type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/assets/favicon.png">
+  
+  <script src="/style.js"></script>
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="https://jothy1023.github.io/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">四月</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">人间四月芳菲尽，山寺桃花始盛开</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页菌</a></li>
+	        
+				<li><a href="/nodeJS">NodeJS</a></li>
+	        
+				<li><a href="/essay">随笔</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">Articles </a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)"> Tags </a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)"> Me</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/jothy1023" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="http://weibo.com/jothy1023" title="weibo">weibo</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">四月</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="https://jothy1023.github.io/avatar.png" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">四月</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">人间四月芳菲尽，山寺桃花始盛开</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页菌</a></li>
+		        
+					<li><a href="/nodeJS">NodeJS</a></li>
+		        
+					<li><a href="/essay">随笔</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/jothy1023" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/jothy1023" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-vueList" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Vue 实现列表分页、搜索、批量操作
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>本文仅讲解如何使用 Vue 创建一个实现分页、搜索、批量操作的列表组件，所以只提供此小组件的代码及说明，不提供其之外的代码或配置</p>
+</blockquote>
+<h4 id="使用到的技术或框架"><a href="#使用到的技术或框架" class="headerlink" title="使用到的技术或框架"></a>使用到的技术或框架</h4><hr>
+<ul>
+<li><strong>Vue.js (2.0)</strong> 一套基于 MVVM 的 progressive framework，可以帮助我们迅速搭建用户界面</li>
+<li><strong>semantic UI</strong> 一套漂亮的 UI 框架</li>
+<li><strong>localStorage</strong> HTML5 的本地存储 API 之一（另一个为 sessionStorage），顾名思义， localStorage 保存在当前设备内存中，除非主动删除，否则一直存在</li>
+</ul>
+<h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><hr>
+<ul>
+<li>安装 Vue 2.0 (rc.6)</li>
+<li>引入 semantic.js 文件</li>
+<li>创建 Audit.vue 文件</li>
+</ul>
+<h4 id="具体过程"><a href="#具体过程" class="headerlink" title="具体过程"></a>具体过程</h4><hr>
+<p>一个简单的 Vue 组件由三部分组成：html 模板 、javascript 脚本 以及 css  样式。下面我们一一来看。<br>效果图如下：</p>
+<p><img src="../../../../assets/pic1.png" alt="oops 图裂了.jpg"></p>
+<p><img src="../../../../assets/pic2.png" alt="oops 图裂了.jpg"></p>
+<p>用到的数据结构是一个简单的 user 对象数组，对象格式为<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">user &#123;</div><div class="line">  <span class="attr">id</span>: int</div><div class="line">  name: <span class="built_in">String</span>,</div><div class="line">  <span class="attr">audit</span>: int</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>其中 audit 用来标记是否审核成功，共 4 个状态从 0 到 3，分别为 未审核、正在审核、已审核、审核不通过。</p>
+<h5 id="html-模板"><a href="#html-模板" class="headerlink" title="html 模板"></a>html 模板</h5><p>由一对<figure class="highlight plain"><figcaption><span>filter （过滤）、container （主体）两部分。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">###### container </div><div class="line">container 主体是一个 table 表格，表格内容 tbody 部分使用 Vue 的 v-for 指令，基于 users 数组渲染出列表。主要代码如下</div></pre></td></tr></table></figure></p>
+<p><tr v-for="user in filteredUsers"><br>  <td class="collapsing"><br>    <div class="ui toggle slider checkbox" v-if="aKey!==''"><br>      <input type="checkbox" :value="user" v-model="selectedUsers"> <label></label><br>    </div><br>  </td><br>  <td></td><br>  <td></td><br>  <td><br>    <i class="radio black icon" v-if="user.audit==0"></i><br>    <i class="minus blue icon" v-if="user.audit==1"></i><br>    <i class="checkmark green icon" v-if="user.audit==2"></i><br>    <i class="remove red icon" v-if="user.audit==3"></i><br>  </td><br>  <td><br>    <ui-button css="primary" v-if="user.audit==0" @click="user.audit=1">审核</ui-button><br>    <ui-button css="green" v-if="user.audit==1" @click="user.audit=2">通过审核</ui-button><br>    <ui-button css="red" v-if="user.audit==1" @click="user.audit=3">不通过审核</ui-button><br>    <ui-button css="grey" v-if="user.audit==2 || user.audit==3" @click="user.audit=1">再次审核</ui-button><br>  </td><br></tr><br><figure class="highlight mel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">其中，<span class="string">``</span><span class="string">`filteredUsers`</span><span class="string">``</span> 为计算属性 computed 的一个 getter，用于从模板中分理出较复杂的逻辑，此处返回过滤后的 users 。</div><div class="line">下来有一个 type 为 checkbox 的 input，当按照某一审核要求过滤时显示，其 v-model 指向 selectedUsers 数组，用来保存批量操作中选中的 user ，之后可以直接对此数组进行操作，改动会同步到 users 。</div><div class="line"></div><div class="line">###### <span class="keyword">filter</span> </div><div class="line"><span class="keyword">filter</span> 部分由一个 input 输入框以及一个 <span class="keyword">select</span> 选择框组成，分别可以通过用户名和审核状态过滤。具体代码如下：</div></pre></td></tr></table></figure></p>
+<p><div class="filter"><br>    <ui-input css="icon"><br>        <input type="text" v-model="fKey" placeholder="输入姓名搜索.."><br>        <i class="search icon"></i><br>    </ui-input><br>    <!-- dropdown --><br>    <ui-dropdown :setting="{allowAdditions: true}" css="selection"><br>        <input name="aKey" type="hidden" v-model.lazy="aKey"><br>        <div class="default text">Select a id</div><br>        <i class="dropdown icon"></i><br>        <div class="menu"><br>            <div class="item" data-value="">所有</div><br>            <div class="item" data-value="0">未审核</div><br>            <div class="item" data-value="1">正在审核</div><br>            <div class="item" data-value="2">已审核</div><br>            <div class="item" data-value="3">审核不通过</div><br>        </div><br>    </ui-dropdown><br></div><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">select</span> 使用 semanticUI 的 dropdown 实现，将其 <span class="keyword">class</span> 设置为 selection。 dropdown 中包含一个 <span class="keyword">input</span> 标签，此标签属性为 <span class="string">``</span><span class="string">` &lt;input name="aKey" type="hidden" v-model.lazy="aKey"&gt; `</span><span class="string">``</span>，其中，<span class="keyword">name</span> 对应 v-<span class="keyword">model</span> 的属性名，负责将值从下面的 .item 中的 <span class="keyword">data</span>-<span class="keyword">value</span> 取回并传递。</div><div class="line">此处有一个地方需要引起注意！！**（敲黑板**</div><div class="line">由于此处的 <span class="keyword">input</span> 标签其实算是 <span class="keyword">select</span> 组件的，改动时默认行为是 <span class="keyword">change</span> 而非 <span class="keyword">input</span> ，也没有输入框，因此就算添加了 v-<span class="keyword">model</span> 也无法触发。但是添加 @<span class="keyword">change</span> 却可以正常触发，百思不得姐，经过千难万苦跋山涉水之后，终于发现！！在 Vue 的源码中有这么一断代码：</div><div class="line"></div><div class="line">![oops 图裂了.jpg](../../../../assets/pic3.png)</div><div class="line"></div><div class="line"> 我们只关注首末行，噢.. 大意就是，判断有无 **lazy** 属性（或者在 IE 环境下并且类型为 <span class="keyword">range</span> ），<span class="literal">true</span> 时监听 <span class="keyword">change</span> 事件，否则监听 <span class="keyword">input</span> 事件。真相大白啦，机智地给 v-<span class="keyword">model</span> 加上个小尾巴 .lazy ，hot-loader 马上刷新，一试果然成功了！赞 b(￣▽￣)d</div><div class="line">P.S: 后来又翻了翻 Vue 的教程，发现尤大大其实在教程中已经说明过了，惹..附图</div><div class="line"></div><div class="line">![oops 图裂了.jpg](../../../../assets/pic4.png)</div><div class="line"></div><div class="line"></div><div class="line"> 并且.. <span class="number">1.0</span> 版本与 <span class="number">2.0</span> 版本也有点细微差别，<span class="number">1.0</span> 是直接写在 <span class="keyword">input</span> 标签的末尾，而 <span class="number">2.0</span> 必须紧跟 v-<span class="keyword">model</span> 之后。</div><div class="line"> </div><div class="line">当二者的 v-<span class="keyword">model</span> 即 fKey 或 aKey 发生改变时，触发 computed 属性重新计算 filteredUsers ，重新渲染 <span class="keyword">users</span> 列表，还有个 paginate 为分页方法。</div></pre></td></tr></table></figure></p>
+<p>filteredUsers () {<br>  let fUsers = this.queryFilter(‘name’, this.fKey, this.users)<br>  fUsers = this.queryFilter(‘audit’, this.aKey, fUsers)<br>  return this.paginate(fUsers)<br>}<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">#### javascript 脚本</span></div><div class="line"><span class="comment">###### 初始数据</span></div><div class="line">定义了 initialUsers 数组，存进去若干个 user 对象，定义 userStorage 对象，存放 fetch 与 save 方法，分别调用 <span class="built_in">local</span>Storage 的 getItem 与 <span class="built_in">set</span>Item 方法向 <span class="built_in">local</span>Storage 获取及存储数据。</div></pre></td></tr></table></figure></p>
+<p>var userStorage</p>
+<p>function init() {<br>  var STORAGE_KEY = ‘users’;</p>
+<p>  userStorage = {<br>    fetch: function () {<br>      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || initialUsers<br>    },<br>    save: function (users) {<br>      localStorage.setItem(STORAGE_KEY, JSON.stringify(users))<br>    }<br>  };<br>}</p>
+<p>init(window);<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">接着是 Vue 实例的各属性方法。</div></pre></td></tr></table></figure></p>
+<p>data () {<br>  return {<br>    users: userStorage.fetch(), // users 数据<br>    selectedUsers: [], // 保存选中的 users 数组<br>    fKey: ‘’, // 过滤 name 的关键字<br>    name: ‘’, // 上一次过滤的 name 关键字，初始化为’’<br>    aKey: ‘’, // select audit 的关键字<br>    audit: ‘’, // 上一次过滤的 audit关键字，初始化为’’<br>    limit: 10, // 每页显示行数<br>    totalPage: 0, // 总页数<br>    currentPage: 0, // 当前页<br>    jPage: 1 // 跳转到某页<br>  }<br>}<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">此处的 <span class="built_in">name</span> 与 audit 看起来有些多余，其实它是有很重要的作用的，它用于保存上一次过滤的 key与 本次的对比。</div><div class="line"><span class="comment">###### 过滤方法 queryFilter</span></div></pre></td></tr></table></figure></p>
+<p>queryFilter (prop, key, arr) {<br>  // none query string, return arr<br>  if (!key) {<br>    return arr<br>  }<br>  // filtering<br>  arr = arr.filter((user) =&gt; {<br>    if (user[prop].toString().indexOf(key) !== -1) {<br>      return true<br>    }<br>  })<br>  // if it’s a new filter query, refilter and turn to page one<br>  if (key !== this[prop]) {<br>    this.currentPage = 0<br>    // save last filter query<br>    this[prop] = key<br>  }<br>  return arr<br>}<br><figure class="highlight excel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">这个设置应用情境是：未设置这个变量时，若用户在一次搜索之后进行翻页，假设停留在了第 <span class="built_in">n</span> 页，这时候再重新搜索，页面会停留在本次搜索的结果的第 <span class="built_in">n</span> 页，非常不方便。因此检测如果重新搜索，则充值 currentPage 属性，记录新的 key 。</div><div class="line"></div><div class="line">###### 分页方法 paginate</div></pre></td></tr></table></figure></p>
+<p>paginate (arr) {<br>  this.totalPage = Math.ceil(arr.length / this.limit)<br>  let page = this.currentPage<br>  let curLimit = this.limit<br>  // 返回指定条数的数组<br>  arr = arr.slice(curLimit <em> page, curLimit </em> (page + 1))<br>  return arr<br>}<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">此处用到了数组的 slice 方法进行浅复制。</div><div class="line"></div><div class="line"><span class="section">###### 翻页方法 turnPage</span></div><div class="line">接受一个数组，1 为向后翻页，-1 为向前翻页</div><div class="line"><span class="bullet">- </span>HTML</div></pre></td></tr></table></figure></p>
+<p><div class="jtp"><br>  <span>跳转到第 </span><br>  <ui-input css="icon"><br>    <input type="text" v-model="jPage" @keyup.enter="jumpToPage"><br>  </ui-input><span> 页</span><br></div><br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="bullet">- </span>Javascript</div></pre></td></tr></table></figure></p>
+<p>turnPage (num) {<br>  if (num === 1) {<br>    if (this.currentPage === this.totalPage - 1) {<br>      return<br>    } else {<br>      this.currentPage++<br>    }<br>  } else {<br>    if (this.currentPage === 0) {<br>      return<br>    } else {<br>      this.currentPage–<br>    }<br>  }<br>}<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">###### 单个操作修改 audit</div><div class="line">为单独操作的 <span class="keyword">button </span>添加 <span class="comment">@click 事件，直接修改</span></div><div class="line"></div><div class="line">###### 批量操作方法</div><div class="line">由于 <span class="keyword">selectedUsers </span>数组保存了被选中 users 的数据，因此只要调用 setAuditId 方法，传入 <span class="keyword">selectedUsers </span>以及要设置的 audit ，遍历 <span class="keyword">selectedUsers </span>进行设置即可。代码举例如下：</div><div class="line">- HTML</div></pre></td></tr></table></figure></p>
+<p><ui-button css="green" v-if="aKey==='1'" @click="pass">通过审核</ui-button></p>
+<p><ui-button css="red" v-if="aKey==='1'" @click="reject">不通过审核</ui-button></p>
+<p><ui-button css="small" v-if="aKey==='0'" @click="approveSel">审核</ui-button></p>
+<p><ui-button css="small" v-if="aKey==='0'" @click="approveAll">全部审核</ui-button></p>
+<p><ui-button css="small" v-if="aKey==='2' || aKey==='3'" @click="approveSel">再次审核</ui-button></p>
+<p><ui-button css="small" v-if="aKey==='2' || aKey==='3'" @click="approveAll">全部再次审核</ui-button><br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="bullet">- </span>Javascript</div></pre></td></tr></table></figure></p>
+<p>approveSel () {<br>  this.setAuditId(this.selectedUsers, 1)<br>},</p>
+<p>approveAll () {<br>  this.setAuditId(this.filteredUsers, 1)<br>},</p>
+<p>pass () {<br>  this.setAuditId(this.selectedUsers, 2)<br>},</p>
+<p>reject () {<br>  this.setAuditId(this.selectedUsers, 3)<br>},</p>
+<p>setAuditId (users, aId) {<br>  users.forEach((user) =&gt; {<br>    user.audit = aId<br>  })<br>}<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">此外，还添加了 watch 对 users 进行检测，每当其改变（例如 修改了 audit）时，将新的 users 存入 <span class="built_in">local</span>Storage 中。</div></pre></td></tr></table></figure></p>
+<p>// watch<br>watch: {<br>  users: {<br>    handler () {<br>      userStorage.save(this.users)<br>    },<br>    deep: true<br>  }<br>}<br>```</p>
+<h5 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h5><p>这部分其实没什么好说的，基本上都用了 semanticUI 的 css ，只在最后的跳转页码输入框的地方重设了 input 的大小而已。</p>
+<p>至此，整个组件就完成啦~~撒花<em>★,°</em>:.☆(￣▽￣)/$:<em>.°★</em> 。<br>初试 Vue ，对一些 api 的使用可能有不准确的，有写得不好的地方欢迎指正。</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/09/13/vueList/" class="archive-article-date">
+  	<time datetime="2016-09-13T10:06:56.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-09-13</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vuejs/">vuejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/全选/">全选</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分页/">分页</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/搜索/">搜索</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2016/08/31/index/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Vuex 入门</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 四月
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Vuex/" style="font-size: 10px;">Vuex</a> <a href="/tags/actions/" style="font-size: 10px;">actions</a> <a href="/tags/apply/" style="font-size: 10px;">apply</a> <a href="/tags/bind/" style="font-size: 10px;">bind</a> <a href="/tags/call/" style="font-size: 10px;">call</a> <a href="/tags/getters/" style="font-size: 10px;">getters</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/modules/" style="font-size: 10px;">modules</a> <a href="/tags/mutations/" style="font-size: 10px;">mutations</a> <a href="/tags/nodejs/" style="font-size: 20px;">nodejs</a> <a href="/tags/request/" style="font-size: 10px;">request</a> <a href="/tags/state/" style="font-size: 10px;">state</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/underscore/" style="font-size: 10px;">underscore</a> <a href="/tags/vuejs/" style="font-size: 10px;">vuejs</a> <a href="/tags/入门/" style="font-size: 10px;">入门</a> <a href="/tags/全选/" style="font-size: 10px;">全选</a> <a href="/tags/函数封装/" style="font-size: 10px;">函数封装</a> <a href="/tags/分页/" style="font-size: 10px;">分页</a> <a href="/tags/同步/" style="font-size: 10px;">同步</a> <a href="/tags/异步/" style="font-size: 10px;">异步</a> <a href="/tags/搜索/" style="font-size: 10px;">搜索</a> <a href="/tags/数据判断/" style="font-size: 10px;">数据判断</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a>
+    			</div>
+    	</section>
+    
+
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">我说我萌萌哒&lt;br&gt;你信吗？</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
