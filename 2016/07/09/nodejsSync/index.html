@@ -4,15 +4,15 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Tag: nodejs,request,Promise,同步,异步 | Jothy AdoreLife..</title>
+  <title>node.js同步获取request请求内容 | Jothy AdoreLife..</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="&amp;emsp;nodejs的异步执行给我们的编程带来了数不尽的好处，以至于我已经习惯了异步编程，某一次在执行request请求想要将其返回的body内容体传到request函数外时，发现怎么也获取不了，由于对node理解的不够深入透彻，我首先怀疑的竟然是会不会request不支持返回操作 or 难道操作仅在函数作用域内有效，后来才搞明白是异步执行惹的事儿，取值那会儿其实还没赋值呢。现在想想自己还是t">
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:title" content="node.js同步获取request请求内容">
-<meta property="og:url" content="https://jothy1023.github.io/nodejs/nodejsSync.html">
+<meta property="og:url" content="https://jothy1023.github.io/2016/07/09/nodejsSync/index.html">
 <meta property="og:site_name" content="Jothy AdoreLife..">
 <meta property="og:description" content="&amp;emsp;nodejs的异步执行给我们的编程带来了数不尽的好处，以至于我已经习惯了异步编程，某一次在执行request请求想要将其返回的body内容体传到request函数外时，发现怎么也获取不了，由于对node理解的不够深入透彻，我首先怀疑的竟然是会不会request不支持返回操作 or 难道操作仅在函数作用域内有效，后来才搞明白是异步执行惹的事儿，取值那会儿其实还没赋值呢。现在想想自己还是t">
-<meta property="og:updated_time" content="2016-10-11T05:39:51.977Z">
+<meta property="og:updated_time" content="2016-10-11T07:12:51.729Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="node.js同步获取request请求内容">
 <meta name="twitter:description" content="&amp;emsp;nodejs的异步执行给我们的编程带来了数不尽的好处，以至于我已经习惯了异步编程，某一次在执行request请求想要将其返回的body内容体传到request函数外时，发现怎么也获取不了，由于对node理解的不够深入透彻，我首先怀疑的竟然是会不会request不支持返回操作 or 难道操作仅在函数作用域内有效，后来才搞明白是异步执行惹的事儿，取值那会儿其实还没赋值呢。现在想想自己还是t">
@@ -134,7 +134,7 @@
 </nav>
 
       <div class="body-wrap">
-        <article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-nodejsSync" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -172,10 +172,15 @@
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/nodejs/nodejsSync.html" class="archive-article-date">
+      <a href="/2016/07/09/nodejsSync/" class="archive-article-date">
   	<time datetime="2016-07-09T12:19:06.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-07-09</time>
 </a>
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Promise/">Promise</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/request/">request</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/同步/">同步</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/异步/">异步</a></li></ul>
+	</div>
+
       
 
       <div class="clearfix"></div>
@@ -184,6 +189,20 @@
 </article>
 
   
+<nav id="article-nav">
+  
+    <a href="/2016/07/13/underscoreSourceCode/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          underscore源码解析之类型判断函数
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
 
 
 
@@ -233,9 +252,9 @@
 		mathjax: false,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
