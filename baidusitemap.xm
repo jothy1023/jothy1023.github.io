@@ -3,8 +3,6 @@
 
 
     
-    
-    
   <url>
     <loc>https://jothy1023.github.io/2016/10/16/js-bind-es5-es6/</loc>
     <lastmod>2016-10-18T02:10:27.765Z</lastmod>
