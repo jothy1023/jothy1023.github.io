@@ -11,13 +11,13 @@
 在实现之前呢，我们首先要知道 bind 是做什么的。JS MDN 给出的定义是 The bind() methods creates a new function that, when called, has its this keyword set to">
 <meta property="og:type" content="article">
 <meta property="og:title" content="javascript 原生 bind() 的 ES6 + ES5 实现">
-<meta property="og:url" content="https://jothy1023.github.io/2016/09/18/js-bind-es5-es6/index.html">
+<meta property="og:url" content="https://jothy1023.github.io/2016/10/16/js-bind-es5-es6/index.html">
 <meta property="og:site_name" content="Jothy AdoreLife..">
 <meta property="og:description" content="前言： 本来只是想写一下简单的 bind 函数实现，没想到写着写着还能牵出 js 中继承的知识，其实研究原生函数的实现总是能学到很多新东西
 
 在实现之前呢，我们首先要知道 bind 是做什么的。JS MDN 给出的定义是 The bind() methods creates a new function that, when called, has its this keyword set to">
 <meta property="og:image" content="http://note.youdao.com/yws/public/resource/80df4dc9bc62843524147237b56b847e/xmlnote/115F6B5CD1A74571A185AECF18F957EA/153">
-<meta property="og:updated_time" content="2016-10-18T02:07:52.408Z">
+<meta property="og:updated_time" content="2016-10-18T02:10:27.765Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javascript 原生 bind() 的 ES6 + ES5 实现">
 <meta name="twitter:description" content="前言： 本来只是想写一下简单的 bind 函数实现，没想到写着写着还能牵出 js 中继承的知识，其实研究原生函数的实现总是能学到很多新东西
@@ -204,12 +204,14 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> obj = &#123;</div><div class="line">  <span class="attr">val</span>: <span class="string">'value'</span>,</div><div class="line">  <span class="attr">method</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.val)</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// ::对象.方法名</span></div><div class="line"><span class="comment">// 等价于 obj.method.bind(obj)</span></div><div class="line"><span class="comment">// 将 method 的 this 绑定为 obj </span></div><div class="line"><span class="comment">// 这里的 method 必须是 obj 的方法</span></div><div class="line">::obj.method;</div><div class="line"></div><div class="line"><span class="comment">// call</span></div><div class="line">obj.method(); <span class="comment">// value</span></div></pre></td></tr></table></figure>
 <p>第二种， <code>对象::方法名()</code></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> obj = &#123;</div><div class="line">  <span class="attr">val</span>: <span class="string">'value'</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">method</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.val);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 对象::方法名() </span></div><div class="line"><span class="comment">// 等价于 method.call(obj) 或 method.apply(obj)</span></div><div class="line"><span class="comment">// 会直接调用并输出 'value'</span></div><div class="line"><span class="comment">// obj::method();</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// 对象::方法  （无括号</span></div><div class="line"><span class="comment">// 等价于 method.bind(obj)</span></div><div class="line"><span class="comment">// 不会自动执行，必须赋值给 method 才能实现绑定</span></div><div class="line"><span class="comment">// 手动调用 method ，输出 vaue</span></div><div class="line">method = obj::method;</div><div class="line">method();</div></pre></td></tr></table></figure>
+<p>嘛~ 有说的不对的地方，欢迎指正..</p>
+
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2016/09/18/js-bind-es5-es6/" class="archive-article-date">
-  	<time datetime="2016-09-18T12:19:06.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-09-18</time>
+      <a href="/2016/10/16/js-bind-es5-es6/" class="archive-article-date">
+  	<time datetime="2016-10-16T12:19:06.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-16</time>
 </a>
       
 	<div class="article-tag tagcloud">
@@ -227,18 +229,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2016/10/05/index/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Vuex 入门
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/09/13/vueList/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Vue 2.0 制作列表组件，实现分页、搜索、批量操作等</div>
+    <a href="/2016/10/05/index/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Vuex 入门</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -272,7 +265,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="js-bind-es5-es6" data-title="javascript 原生 bind() 的 ES6 + ES5 实现" data-url="https://jothy1023.github.io/2016/09/18/js-bind-es5-es6/"></div>
+	<div class="ds-thread" data-thread-key="js-bind-es5-es6" data-title="javascript 原生 bind() 的 ES6 + ES5 实现" data-url="https://jothy1023.github.io/2016/10/16/js-bind-es5-es6/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
