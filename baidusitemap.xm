@@ -3,6 +3,7 @@
 
 
     
+    
   <url>
     <loc>https://jothy1023.github.io/2016/10/05/index/</loc>
     <lastmod>2016-10-18T14:48:11.122Z</lastmod>
@@ -125,13 +126,13 @@
          
         <tag>bind</tag>
          
-        <tag>nodejs</tag>
-         
         <tag>this</tag>
          
         <tag>apply</tag>
          
         <tag>call</tag>
+         
+        <tag>nodejs</tag>
          
          
            
