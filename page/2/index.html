@@ -137,96 +137,6 @@
       <div class="body-wrap">
         
   
-    <article id="post-underscoreSourceCode" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/13/underscoreSourceCode/">underscore源码解析之类型判断函数</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&emsp;首先将内置对象的原型链以及内置对象原型中的常用方法缓存在局部变量中</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 内置对象原型链</span></div><div class="line"><span class="keyword">var</span> ArrayProto = <span class="built_in">Array</span>.prototype,</div><div class="line">    ObjProto = <span class="built_in">Object</span>.prototype,</div><div class="line">    FuncProto = <span class="built_in">Function</span>.prototype;</div><div class="line"></div><div class="line"><span class="comment">// 内置对象原型中的常用方法 e.g: toString</span></div><div class="line"><span class="keyword">var</span> toString = ObjProto.toString,</div><div class="line">    hasOwnProperty = ObjProto.hasOwnProperty;</div></pre></td></tr></table></figure>
-<p>&emsp;这样做的好处除了简洁代码之外，还有两个好处，首先是利于代码的压缩。而原生的对象原型无法进行压缩，e.g: Object.Protype压缩之后宿主就不认识了，但是objProto可以压缩为a，之后的调用也可以正常进行；然后是可减少在原型链中的查找次数(提高代码效率)。</p>
-<hr>
-<p>&emsp;再定义一组javascript原生支持的判断函数，若宿主环境（浏览器/nodejs）支持，则直接返回。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> nativeIsArray      = <span class="built_in">Array</span>.isArray,</div><div class="line">    nativeKeys         = <span class="built_in">Object</span>.keys,</div><div class="line">    nativeBind         = FuncProto.bind,</div><div class="line">    nativeCreate       = <span class="built_in">Object</span>.create;</div></pre></td></tr></table></figure>
-<p>&emsp;若不支持以上函数（es5之后才支持），则返回underscore自己写的判断函数。</p>
-<hr>
-<ul>
-<li>是否为DOM</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">_.isElement = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</div><div class="line">  <span class="comment">// 首先确保不是 null/undefined 等假值（!!obj），</span></div><div class="line">  <span class="comment">// DOM 的 nodeType 为1，!!用于强制类型转换为 Boolean 值</span></div><div class="line">  <span class="keyword">return</span> !!(obj &amp;&amp; obj.nodeType === <span class="number">1</span>);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<ul>
-<li>是否为数组Array</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">_.isArray = nativeIsArray || <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</div><div class="line">  <span class="comment">// call 方法可以使得任意 obj 都可以调用 toString 方法，即使是没有 toString 方法的对象</span></div><div class="line">  <span class="keyword">return</span> toString.call(obj) === <span class="string">'[object aray]'</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<ul>
-<li>是否为对象Object</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">_.isObject = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> type = <span class="keyword">typeof</span>(obj);</div><div class="line">  <span class="comment">// 除了普通对象之外，函数也是对象</span></div><div class="line">  <span class="comment">// !!obj 是为了排除 null 的情况，因为 typeof null 也为 object</span></div><div class="line">  <span class="keyword">return</span> type === <span class="string">'function'</span> || type === <span class="string">'object'</span> &amp;&amp; !!obj;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<ul>
-<li>是否为布尔值Boolean</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">_.isBoolean = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</div><div class="line">  <span class="comment">// 除了 true 与 false 之外，布尔值还可能是 new Boolean() 哦</span></div><div class="line">  <span class="comment">// 不过似乎直接用最后一种判断就可以了？</span></div><div class="line">  <span class="keyword">return</span> obj === <span class="string">'true'</span> || obj === <span class="string">'false'</span> || toString.call(obj) === <span class="string">'[object boolean]'</span>;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<ul>
-<li>是否为arguments</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (!_.isArguments(<span class="built_in">arguments</span>)) &#123;</div><div class="line">  _.isArguments = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</div><div class="line">    <span class="comment">// 通过是否有 callee 方法判断</span></div><div class="line">    <span class="comment">// 因为IE &lt; 9 下对 arguments 调用 Object.prototype.toString.call 方法</span></div><div class="line">    <span class="comment">// 返回的是 [object Object] ，而非 [object Arguments]</span></div><div class="line">    <span class="keyword">return</span> _.has(obj, <span class="string">'callee'</span>);</div><div class="line">  &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>是否为NaN</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">_.isNaN = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</div><div class="line">  <span class="comment">// NaN是一个Number类型，但是它不等于它本身</span></div><div class="line">  <span class="comment">// ‘+’ 放在变量前面一般作用是把后面的变量变成一个数，</span></div><div class="line">  <span class="comment">// 在这里已经判断为一个数仍加上 ‘+’，是为了把 var num = new Number() 这种没有值的数字也归为 NaN</span></div><div class="line">  <span class="keyword">return</span> _.isNumber(obj) &amp;&amp; obj !== +obj;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<ul>
-<li>是否为undefined</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">_.isUndefined = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</div><div class="line">  <span class="comment">// 一般我们都用 if(obj) 来直接判断undefined</span></div><div class="line">  <span class="comment">// undefined 只是全局对象的一个属性，在局部环境能被重新定义</span></div><div class="line">  <span class="comment">// 但是 void 0 始终是 undefined</span></div><div class="line">  <span class="keyword">return</span> obj === <span class="keyword">void</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>是否有has指定key</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">_.has = <span class="function"><span class="keyword">function</span>(<span class="params">obj, key</span>) </span>&#123;</div><div class="line">    <span class="comment">// obj 不能为 null 或者 undefined</span></div><div class="line">    <span class="keyword">return</span> obj != <span class="literal">null</span> &amp;&amp; hasOwnProperty.call(obj, key);</div><div class="line">  &#125;;</div></pre></td></tr></table></figure>
-<p>参考自：<a href="http://www.kancloud.cn/digest/underscore-source/82316" target="_blank" rel="external">http://www.kancloud.cn/digest/underscore-source/82316</a></p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/07/13/underscoreSourceCode/" class="archive-article-date">
-  	<time datetime="2016-07-13T10:06:56.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-07-13</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/underscore/">underscore</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-nodejsSync" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -272,6 +182,88 @@
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/同步/">同步</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/异步/">异步</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-how-to-learn-english" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/05/how-to-learn-english/">英语学习计划--单词/文章/听力</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>  关于英语学习计划，其实就简单地分<strong>单词、文章、听力</strong>三部分，下面的计划虽然乍一看量不多，但是我的最低要求就是，每一个单词、每一篇文章、每一集剧你都要做到真正理解，而不是一知半解。</p>
+<h2 id="1-单词"><a href="#1-单词" class="headerlink" title="1. 单词"></a>1. 单词</h2><ul>
+<li>单词可以分为7个星期来学习，每星期学的单词递减（因为背单词是有惰性的，越到后面越不想背）<ul>
+<li>第一个星期，每天学习35个新单词，第n天复习前n-1天的旧单词</li>
+<li>第二个星期，每天学习30个新单词，第n天复习前n-1天的旧单词</li>
+<li>…</li>
+<li>第七个星期，每天学习5个新单词，第n天复习前n-1天的旧单词</li>
+</ul>
+</li>
+<li>背单词软件就随意选择就好啦，像你之前用的扇贝都是可以的，设置好单词数就好，这样算下来，如果天天都坚持的话，能背下<strong>980</strong>个单词，建议前面和后面选择四级词汇，中间几个星期可以尝试下六级词汇。虽然不算多，但是能都记住就很了不起了。</li>
+<li>little tip: 背单词的时候，一开始精力比较足可以看多一些拓展词汇（很多背单词软件都会有），但是建议越到后面越别看那么多，因为光是旧单词就可能会让你扛不下来了，我们要的是主单词一定掌握！短语什么的知道一两个足矣。</li>
+</ul>
+<hr>
+<h2 id="2-文章"><a href="#2-文章" class="headerlink" title="2. 文章"></a>2. 文章</h2><ul>
+<li>阅读量可以不用太大，个人感觉3天一篇就够了，可以找一些阅读理解的文章去看，或者很多网站都有bbc中英文新闻可以看的。</li>
+<li>有个办法是自己一直也很想实践的，就是在看技术全英文档！既能提高英文水平，又能提高技术，何乐而不为呢？而且老外的东西很多都是比较新、总结得比较透彻比较可信的，国内也有很多牛人会去翻译国外技术大牛的博客，你可以找找。</li>
+</ul>
+<hr>
+<h2 id="3-听力"><a href="#3-听力" class="headerlink" title="3. 听力"></a>3. 听力</h2><h3 id="听力还是离不开看美剧和听歌"><a href="#听力还是离不开看美剧和听歌" class="headerlink" title="听力还是离不开看美剧和听歌"></a>听力还是离不开看美剧和听歌</h3><ul>
+<li>美剧的话我觉得看《绝望的主妇》就可以了，语速很慢，讲故事类型的，不像情景喜剧那样太容易让人忘记是为了学习，每一集结束后的那几句总结的话都是精髓！！<ul>
+<li>可以每2天或者4天看一集，看的时候要求很高！第一遍不看字幕看完，试试能不能理解，然后看有字幕的第二遍。</li>
+<li>我自己是不喜欢看太多遍的，所以建议看的时候要用心，第二次不懂的地方可以停下来理解清楚再继续看。对于觉得比较有意思的句子还可以做笔记记录下来。</li>
+<li>印象中我前面几季都看完了，你看了也可以找我讨论，剧情也行，我当时看的时候是完全停不下来！</li>
+<li>可以找电影天堂这类型的网站下载，也可以直接安装个优酷app看或者在线看，但是优酷只有中文字幕，你自己下载的话可以下载到中英文字幕。给个地址你可以去下载：<a href="http://video.1speaking.com/view/index61.html" target="_blank" rel="external">绝望的主妇第一季中英双字幕</a></li>
+</ul>
+</li>
+<li>英文歌呢，推荐用网易云音乐听游戏歌曲啊摇滚歌曲啊，都是有中文翻译的，你平时学习java的时候也可以一边听歌，很神奇的事就是一开始你可能是喜欢这个节奏，但是突然某句歌词觉得听得懂，就会停下来看是什么意思，然后也许整首歌都知道什么意思了，还能学到新单词。<ul>
+<li>推荐几首比较热的: bangbang、roar、falshlight、try everything等等，还有最近很喜欢的<strong>I want my tears back</strong>，你还可以找它们这些歌曲相关的歌单听更多同类型的歌！</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>  最后咧，我觉得最重要的就是，既然你让我帮忙制定的这个计划，那你就要接受我的这些安排，不要有抵触心理，先去试试才知道能不能成功。如果过程中实在发现有什么是你做不到或者是有问题的我们再改改。</p>
+<h2 id="么么哒，加油亲爱的。"><a href="#么么哒，加油亲爱的。" class="headerlink" title="么么哒，加油亲爱的。"></a>么么哒，加油亲爱的。</h2>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/07/05/how-to-learn-english/" class="archive-article-date">
+  	<time datetime="2016-07-05T05:17:48.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-07-05</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/english/">english</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/essay/">essay</a></li></ul>
 	</div>
 
       
@@ -354,7 +346,7 @@
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Vuex/" style="font-size: 10px;">Vuex</a> <a href="/tags/english/" style="font-size: 10px;">english</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/es7/" style="font-size: 10px;">es7</a> <a href="/tags/essay/" style="font-size: 10px;">essay</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/nodejs/" style="font-size: 20px;">nodejs</a> <a href="/tags/underscore/" style="font-size: 10px;">underscore</a> <a href="/tags/vuejs/" style="font-size: 10px;">vuejs</a> <a href="/tags/同步/" style="font-size: 10px;">同步</a> <a href="/tags/异步/" style="font-size: 10px;">异步</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+    				<a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Vuex/" style="font-size: 10px;">Vuex</a> <a href="/tags/english/" style="font-size: 10px;">english</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/es7/" style="font-size: 10px;">es7</a> <a href="/tags/essay/" style="font-size: 20px;">essay</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/nodejs/" style="font-size: 20px;">nodejs</a> <a href="/tags/underscore/" style="font-size: 10px;">underscore</a> <a href="/tags/vuejs/" style="font-size: 10px;">vuejs</a> <a href="/tags/同步/" style="font-size: 10px;">同步</a> <a href="/tags/异步/" style="font-size: 10px;">异步</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a>
     			</div>
     	</section>
     
