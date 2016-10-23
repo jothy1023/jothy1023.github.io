@@ -19,7 +19,7 @@
 
 在实现之前呢，我们首先要知道 bind 是做什么的。JS MDN 给出的定义是 The bind() methods creates a new function that, when called, has its this keyword set to">
 <meta property="og:image" content="http://note.youdao.com/yws/public/resource/80df4dc9bc62843524147237b56b847e/xmlnote/115F6B5CD1A74571A185AECF18F957EA/153">
-<meta property="og:updated_time" content="2016-10-18T02:10:27.765Z">
+<meta property="og:updated_time" content="2016-10-23T10:48:20.061Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javascript 原生 bind() 的 ES6 + ES5 实现">
 <meta name="twitter:description" content="前言： 本来只是想写一下简单的 bind 函数实现，没想到写着写着还能牵出 js 中继承的知识，其实研究原生函数的实现总是能学到很多新东西
@@ -218,7 +218,7 @@
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ECMAScript/">ECMAScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bind/">bind</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es2015/">es2015</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es7/">es7</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es7/">es7</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
 	</div>
 
       
@@ -344,7 +344,7 @@
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/ECMAScript/" style="font-size: 10px;">ECMAScript</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Vuex/" style="font-size: 10px;">Vuex</a> <a href="/tags/actions/" style="font-size: 10px;">actions</a> <a href="/tags/apply/" style="font-size: 10px;">apply</a> <a href="/tags/bind/" style="font-size: 20px;">bind</a> <a href="/tags/call/" style="font-size: 10px;">call</a> <a href="/tags/es2015/" style="font-size: 10px;">es2015</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/es7/" style="font-size: 10px;">es7</a> <a href="/tags/getters/" style="font-size: 10px;">getters</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/modules/" style="font-size: 10px;">modules</a> <a href="/tags/mutations/" style="font-size: 10px;">mutations</a> <a href="/tags/nodejs/" style="font-size: 20px;">nodejs</a> <a href="/tags/request/" style="font-size: 10px;">request</a> <a href="/tags/state/" style="font-size: 10px;">state</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/underscore/" style="font-size: 10px;">underscore</a> <a href="/tags/vuejs/" style="font-size: 10px;">vuejs</a> <a href="/tags/入门/" style="font-size: 10px;">入门</a> <a href="/tags/全选/" style="font-size: 10px;">全选</a> <a href="/tags/函数封装/" style="font-size: 10px;">函数封装</a> <a href="/tags/分页/" style="font-size: 10px;">分页</a> <a href="/tags/同步/" style="font-size: 10px;">同步</a> <a href="/tags/异步/" style="font-size: 10px;">异步</a> <a href="/tags/搜索/" style="font-size: 10px;">搜索</a> <a href="/tags/数据判断/" style="font-size: 10px;">数据判断</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a>
+    				<a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Vuex/" style="font-size: 10px;">Vuex</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/es7/" style="font-size: 10px;">es7</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/nodejs/" style="font-size: 20px;">nodejs</a> <a href="/tags/underscore/" style="font-size: 10px;">underscore</a> <a href="/tags/vuejs/" style="font-size: 10px;">vuejs</a> <a href="/tags/同步/" style="font-size: 10px;">同步</a> <a href="/tags/异步/" style="font-size: 10px;">异步</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a>
     			</div>
     	</section>
     

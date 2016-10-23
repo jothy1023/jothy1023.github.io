@@ -2,72 +2,72 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://jothy1023.github.io/essay/index.html</loc>
+    <loc>https://jothy1023.github.io/nodeJS/nodejsSync.html</loc>
     
-    <lastmod>2016-10-23T10:43:36.246Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jothy1023.github.io/essay/how-to-learn-english.html</loc>
-    
-    <lastmod>2016-10-23T10:42:58.519Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jothy1023.github.io/2016/10/05/index/</loc>
-    
-    <lastmod>2016-10-18T14:48:11.122Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jothy1023.github.io/2016/10/16/js-bind-es5-es6/</loc>
-    
-    <lastmod>2016-10-18T02:10:27.765Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jothy1023.github.io/2016/09/13/vueList/</loc>
-    
-    <lastmod>2016-10-12T02:21:26.835Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jothy1023.github.io/2016/07/09/nodejsSync/</loc>
-    
-    <lastmod>2016-10-11T07:12:51.729Z</lastmod>
+    <lastmod>2016-10-23T10:49:51.610Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://jothy1023.github.io/nodeJS/index.html</loc>
     
-    <lastmod>2016-10-11T06:10:03.894Z</lastmod>
+    <lastmod>2016-10-23T10:49:42.340Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jothy1023.github.io/2016/07/28/thisInJS/</loc>
+    <loc>https://jothy1023.github.io/essay/index.html</loc>
     
-    <lastmod>2016-10-11T05:41:21.285Z</lastmod>
+    <lastmod>2016-10-23T10:49:36.084Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jothy1023.github.io/essay/how-to-learn-english.html</loc>
+    
+    <lastmod>2016-10-23T10:49:28.157Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jothy1023.github.io/2016/09/13/vueList/</loc>
+    
+    <lastmod>2016-10-23T10:49:18.510Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://jothy1023.github.io/2016/07/13/underscoreSourceCode/</loc>
     
-    <lastmod>2016-10-11T05:40:44.327Z</lastmod>
+    <lastmod>2016-10-23T10:49:11.054Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jothy1023.github.io/nodeJS/nodejsSync.html</loc>
+    <loc>https://jothy1023.github.io/2016/07/28/thisInJS/</loc>
     
-    <lastmod>2016-10-11T05:39:51.977Z</lastmod>
+    <lastmod>2016-10-23T10:48:45.597Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jothy1023.github.io/2016/07/09/nodejsSync/</loc>
+    
+    <lastmod>2016-10-23T10:48:33.180Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jothy1023.github.io/2016/10/16/js-bind-es5-es6/</loc>
+    
+    <lastmod>2016-10-23T10:48:20.061Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jothy1023.github.io/2016/10/05/index/</loc>
+    
+    <lastmod>2016-10-23T10:47:59.980Z</lastmod>
     
   </url>
   

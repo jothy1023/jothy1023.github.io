@@ -6,7 +6,7 @@
   <meta name="google-site-verification" content="yMGvBt7A2j_hf88oQbaQ3jysquh7hz3P5JL-nrRMCYU" />
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Tag: nodejs,请求对象,事件循环,I/O观察者,单线程,I/O线程池 | Jothy AdoreLife..</title>
+  <title>Tag: nodejs | Jothy AdoreLife..</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="踩着七月的尾巴 ^ ^First of all之前一提起 node 的异步 I/O ，总是脑海里有个大概的轮廓，但是描述出来的话需要比较大的篇幅，不够有条理，对于事件循环、单线程等的参与也没那么清晰，所以今天想理顺下整个过程，朴灵大大的《深入浅出NodeJS》讲得很详细很清楚，只不过对于我这种计算机底层基础不够扎实的人来说，还是需要翻成大白话比较好理解记忆。如果有说得不对的地方请帮忙指正。^^首先">
 <meta property="og:type" content="website">
@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://jothy1023.github.io/nodeJS/index.html">
 <meta property="og:site_name" content="Jothy AdoreLife..">
 <meta property="og:description" content="踩着七月的尾巴 ^ ^First of all之前一提起 node 的异步 I/O ，总是脑海里有个大概的轮廓，但是描述出来的话需要比较大的篇幅，不够有条理，对于事件循环、单线程等的参与也没那么清晰，所以今天想理顺下整个过程，朴灵大大的《深入浅出NodeJS》讲得很详细很清楚，只不过对于我这种计算机底层基础不够扎实的人来说，还是需要翻成大白话比较好理解记忆。如果有说得不对的地方请帮忙指正。^^首先">
-<meta property="og:updated_time" content="2016-10-11T06:10:03.894Z">
+<meta property="og:updated_time" content="2016-10-23T10:49:42.340Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="超易懂！NodeJS异步I/O的实现过程">
 <meta name="twitter:description" content="踩着七月的尾巴 ^ ^First of all之前一提起 node 的异步 I/O ，总是脑海里有个大概的轮廓，但是描述出来的话需要比较大的篇幅，不够有条理，对于事件循环、单线程等的参与也没那么清晰，所以今天想理顺下整个过程，朴灵大大的《深入浅出NodeJS》讲得很详细很清楚，只不过对于我这种计算机底层基础不够扎实的人来说，还是需要翻成大白话比较好理解记忆。如果有说得不对的地方请帮忙指正。^^首先">
@@ -291,7 +291,7 @@
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/ECMAScript/" style="font-size: 10px;">ECMAScript</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Vuex/" style="font-size: 10px;">Vuex</a> <a href="/tags/actions/" style="font-size: 10px;">actions</a> <a href="/tags/apply/" style="font-size: 10px;">apply</a> <a href="/tags/bind/" style="font-size: 20px;">bind</a> <a href="/tags/call/" style="font-size: 10px;">call</a> <a href="/tags/es2015/" style="font-size: 10px;">es2015</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/es7/" style="font-size: 10px;">es7</a> <a href="/tags/getters/" style="font-size: 10px;">getters</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/modules/" style="font-size: 10px;">modules</a> <a href="/tags/mutations/" style="font-size: 10px;">mutations</a> <a href="/tags/nodejs/" style="font-size: 20px;">nodejs</a> <a href="/tags/request/" style="font-size: 10px;">request</a> <a href="/tags/state/" style="font-size: 10px;">state</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/underscore/" style="font-size: 10px;">underscore</a> <a href="/tags/vuejs/" style="font-size: 10px;">vuejs</a> <a href="/tags/入门/" style="font-size: 10px;">入门</a> <a href="/tags/全选/" style="font-size: 10px;">全选</a> <a href="/tags/函数封装/" style="font-size: 10px;">函数封装</a> <a href="/tags/分页/" style="font-size: 10px;">分页</a> <a href="/tags/同步/" style="font-size: 10px;">同步</a> <a href="/tags/异步/" style="font-size: 10px;">异步</a> <a href="/tags/搜索/" style="font-size: 10px;">搜索</a> <a href="/tags/数据判断/" style="font-size: 10px;">数据判断</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a>
+    				<a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Vuex/" style="font-size: 10px;">Vuex</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/es7/" style="font-size: 10px;">es7</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/nodejs/" style="font-size: 20px;">nodejs</a> <a href="/tags/underscore/" style="font-size: 10px;">underscore</a> <a href="/tags/vuejs/" style="font-size: 10px;">vuejs</a> <a href="/tags/同步/" style="font-size: 10px;">同步</a> <a href="/tags/异步/" style="font-size: 10px;">异步</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a>
     			</div>
     	</section>
     
