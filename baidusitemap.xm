@@ -4,8 +4,44 @@
 
     
     
+  <url>
+    <loc>https://jothy1023.github.io/2016/10/23/my-lucky-1023/</loc>
+    <lastmod>2016-10-23T10:52:17.420Z</lastmod>
+    <data>
+        <display>
+        <title>相信自己的能力，喜欢自己的人生</title>
+        <pubTime>2016-10-23T05:17:48.000Z</pubTime>
+        
+        <tag>essay</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
     
     
+    
+    
+  <url>
+    <loc>https://jothy1023.github.io/2016/10/23/how-to-learn-english/</loc>
+    <lastmod>2016-10-23T10:49:28.157Z</lastmod>
+    <data>
+        <display>
+        <title>英语学习计划--单词/文章/听力</title>
+        <pubTime>2016-10-23T10:55:27.213Z</pubTime>
+        
+        <tag>english</tag>
+         
+        <tag>随笔</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
     
   <url>
     <loc>https://jothy1023.github.io/2016/09/13/vueList/</loc>

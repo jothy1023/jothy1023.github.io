@@ -6,18 +6,26 @@
   <meta name="google-site-verification" content="yMGvBt7A2j_hf88oQbaQ3jysquh7hz3P5JL-nrRMCYU" />
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Tag: nodejs,同步,异步 | Jothy AdoreLife..</title>
+  <title>相信自己的能力，喜欢自己的人生 | Jothy AdoreLife..</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;emsp;nodejs的异步执行给我们的编程带来了数不尽的好处，以至于我已经习惯了异步编程，某一次在执行request请求想要将其返回的body内容体传到request函数外时，发现怎么也获取不了，由于对node理解的不够深入透彻，我首先怀疑的竟然是会不会request不支持返回操作 or 难道操作仅在函数作用域内有效，后来才搞明白是异步执行惹的事儿，取值那会儿其实还没赋值呢。现在想想自己还是t">
-<meta property="og:type" content="website">
-<meta property="og:title" content="node.js同步获取request请求内容">
-<meta property="og:url" content="https://jothy1023.github.io/nodeJS/nodejsSync.html">
+  <meta name="description" content="（图片来自硅谷 IT 女神朱赟( yun )的公众号：嘀嗒嘀嗒，本文也启发自她）
+近几个月自己的情绪总是不稳定，容易煞有其事地闹点小脾气。也不太喜欢主动和人说话，还出‘高价’买了防噪音耳塞，想躲进世界的角落里。
+就在九月底，我给自己做了许多个测试，结合自己的表现，‘诊断’出自己患了抑郁症。需要‘积极地进行自我治疗’，也的确在最初的几天里，在学习和锻炼中找到了生活的充实感。但是过没几天，又变回了老样">
+<meta property="og:type" content="article">
+<meta property="og:title" content="相信自己的能力，喜欢自己的人生">
+<meta property="og:url" content="https://jothy1023.github.io/2016/10/23/my-lucky-1023/index.html">
 <meta property="og:site_name" content="Jothy AdoreLife..">
-<meta property="og:description" content="&amp;emsp;nodejs的异步执行给我们的编程带来了数不尽的好处，以至于我已经习惯了异步编程，某一次在执行request请求想要将其返回的body内容体传到request函数外时，发现怎么也获取不了，由于对node理解的不够深入透彻，我首先怀疑的竟然是会不会request不支持返回操作 or 难道操作仅在函数作用域内有效，后来才搞明白是异步执行惹的事儿，取值那会儿其实还没赋值呢。现在想想自己还是t">
-<meta property="og:updated_time" content="2016-10-23T10:49:51.610Z">
+<meta property="og:description" content="（图片来自硅谷 IT 女神朱赟( yun )的公众号：嘀嗒嘀嗒，本文也启发自她）
+近几个月自己的情绪总是不稳定，容易煞有其事地闹点小脾气。也不太喜欢主动和人说话，还出‘高价’买了防噪音耳塞，想躲进世界的角落里。
+就在九月底，我给自己做了许多个测试，结合自己的表现，‘诊断’出自己患了抑郁症。需要‘积极地进行自我治疗’，也的确在最初的几天里，在学习和锻炼中找到了生活的充实感。但是过没几天，又变回了老样">
+<meta property="og:image" content="http://note.youdao.com/yws/public/resource/18194a6b66944206b31782a950bb07c1/2999683E22054623B4706F013394401D">
+<meta property="og:updated_time" content="2016-10-23T10:52:17.420Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="node.js同步获取request请求内容">
-<meta name="twitter:description" content="&amp;emsp;nodejs的异步执行给我们的编程带来了数不尽的好处，以至于我已经习惯了异步编程，某一次在执行request请求想要将其返回的body内容体传到request函数外时，发现怎么也获取不了，由于对node理解的不够深入透彻，我首先怀疑的竟然是会不会request不支持返回操作 or 难道操作仅在函数作用域内有效，后来才搞明白是异步执行惹的事儿，取值那会儿其实还没赋值呢。现在想想自己还是t">
+<meta name="twitter:title" content="相信自己的能力，喜欢自己的人生">
+<meta name="twitter:description" content="（图片来自硅谷 IT 女神朱赟( yun )的公众号：嘀嗒嘀嗒，本文也启发自她）
+近几个月自己的情绪总是不稳定，容易煞有其事地闹点小脾气。也不太喜欢主动和人说话，还出‘高价’买了防噪音耳塞，想躲进世界的角落里。
+就在九月底，我给自己做了许多个测试，结合自己的表现，‘诊断’出自己患了抑郁症。需要‘积极地进行自我治疗’，也的确在最初的几天里，在学习和锻炼中找到了生活的充实感。但是过没几天，又变回了老样">
+<meta name="twitter:image" content="http://note.youdao.com/yws/public/resource/18194a6b66944206b31782a950bb07c1/2999683E22054623B4706F013394401D">
   
     <link rel="alternative" href="/atom.xml" title="Jothy AdoreLife.." type="application/atom+xml">
   
@@ -136,7 +144,7 @@
 </nav>
 
       <div class="body-wrap">
-        <article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-my-lucky-1023" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -146,7 +154,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      node.js同步获取request请求内容
+      相信自己的能力，喜欢自己的人生
     </h1>
   
 
@@ -154,30 +162,36 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&emsp;nodejs的异步执行给我们的编程带来了数不尽的好处，以至于我已经习惯了异步编程，某一次在执行request请求想要将其返回的body内容体传到request函数外时，发现怎么也获取不了，由于对node理解的不够深入透彻，我首先怀疑的竟然是<strong>会不会request不支持返回操作 or 难道操作仅在函数作用域内有效</strong>，后来才搞明白是异步执行惹的事儿，取值那会儿其实还没赋值呢。现在想想自己还是too naive..</p>
-<p>&emsp;搞明白了是异步的问题之后，便想着如何把异步执行变同步执行，实现的方法有很多，我用的是Promise来实现。具体例子如下：</p>
-<p>&emsp;简单地请求一下github并输出状态码 = =</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="meta">"use strict"</span></div><div class="line"></div><div class="line"><span class="keyword">let</span> request =  <span class="built_in">require</span>(<span class="string">'request'</span>);</div><div class="line"><span class="keyword">let</span> test = <span class="string">'I am test'</span>;</div><div class="line"></div><div class="line"><span class="comment">// async</span></div><div class="line">request(&#123;</div><div class="line">    <span class="attr">url</span>: <span class="string">'https://github.com'</span>,</div><div class="line">    <span class="attr">method</span>: <span class="string">'get'</span></div><div class="line">&#125;, (err, res, body) =&gt; &#123;</div><div class="line">    <span class="keyword">if</span> (res &amp;&amp; res.statusCode === <span class="number">200</span>) &#123;</div><div class="line">      test = res.statusCode + <span class="string">'ok!'</span>;</div><div class="line">      <span class="built_in">console</span>.log(<span class="string">'inside request: '</span> + test);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      test = <span class="string">'error - -'</span>;</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'outside request: '</span> + test);</div></pre></td></tr></table></figure>
-<p>&emsp;执行结果如下：<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ <span class="keyword">node</span> <span class="title">request</span>.js</div><div class="line">outside request: I am test</div><div class="line">inside request: <span class="number">200</span> ok!</div></pre></td></tr></table></figure></p>
-<p>&emsp;其实单从结果就可以看到，outside的执行是先于inside的，但是懵逼的我当时并没有发现，oops..</p>
-<p>&emsp;言归正传，用上了Promise之后的画风是这样的：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="meta">"use strict"</span></div><div class="line"><span class="keyword">let</span> test = <span class="string">'I am test'</span>;</div><div class="line"><span class="keyword">let</span> request = <span class="built_in">require</span>(<span class="string">'request'</span>);</div><div class="line"></div><div class="line"><span class="comment">// sync</span></div><div class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</div><div class="line">    request(&#123;</div><div class="line">        <span class="attr">url</span>: <span class="string">'https://github.com'</span>,</div><div class="line">        <span class="attr">method</span>: <span class="string">'get'</span></div><div class="line">    &#125;, (err, res, body) =&gt; &#123;</div><div class="line">        <span class="keyword">if</span> (res &amp;&amp; res.statusCode === <span class="number">200</span>) &#123;</div><div class="line">            resolve(res.statusCode + <span class="string">' ok!'</span>);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            reject(<span class="string">' error - -'</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</div><div class="line">    test = result;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"outside request: "</span> + test);</div><div class="line">&#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"error: "</span> + err)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>&emsp;执行结果：<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="keyword">node</span> <span class="title">request</span>.js</div><div class="line">outside request: <span class="number">200</span> ok!</div></pre></td></tr></table></figure></p>
-<p>&emsp;这样一来，就能实现在request外也获取其内容的功能啦~~只要把代码都丢到then里面就可以了。</p>
-<p>&emsp;好吧，写完之后发现，这他喵的这么简单我怎么会折腾这么久！ T T</p>
-<p>&emsp;最后的最后，想告诫自己</p>
+        <p><img src="http://note.youdao.com/yws/public/resource/18194a6b66944206b31782a950bb07c1/2999683E22054623B4706F013394401D" alt="image"><br>（图片来自硅谷 IT 女神朱赟( yun )的公众号：嘀嗒嘀嗒，本文也启发自她）</p>
+<p>近几个月自己的情绪总是不稳定，容易煞有其事地闹点小脾气。也不太喜欢主动和人说话，还出‘高价’买了防噪音耳塞，想躲进世界的角落里。</p>
+<p>就在九月底，我给自己做了许多个测试，结合自己的表现，‘诊断’出自己患了抑郁症。需要‘积极地进行自我治疗’，也的确在最初的几天里，在学习和锻炼中找到了生活的充实感。但是过没几天，又变回了老样子。觉得自己一天下来，并学不到什么，所以干脆自暴自弃，寄情于买买买之中。夜里睡前也能看着购物 APP 上自己并不缺但是在搞活动的商品，睡意全无，完全忘了前一天还信誓旦旦地说要早睡早期不让癌症接近自己。</p>
+<p>也会忧心，其实上班真是一件好累人的事呢，怪不得学校要给我们一年的时间，来习惯从学生到上班族的转变。但是再怎么样，都是要迈入职场的呀。</p>
+<p>今天读了安姐的一篇《每座城市都是一道风景》，里面有一句话让我久久深深触动。</p>
 <blockquote>
-<p>前端路阻且长，且行且珍惜。</p>
+<p>我们四年前从德州搬来加州的时候，房子价格贵了一倍，面积却变成了原先的一半。好在这辈子已经住过大房子了，也没有什么遗憾了。</p>
 </blockquote>
+<p>再想一想自己来到广州这个城市一晃也已三年有余。我喜欢这座城市，她让我遇见了许多可爱的人事物，让我走出了自命不凡的小宇宙，让我喜欢上人与人之间思想的交流与碰撞——让我有能力一步步过上自己想要的生活。但是安姐这句话让我重新审视当下的自己——这个不知足不懂发现美的自己。</p>
+<p>仔细想想，我一切的一切不开心与愤懑，其实一开始就是自己带给自己的，连那抑郁症也是。换做是我，搬了家房租贵了，房子还小了，我一定又会生气，并企图找到个条件和之前差不多的房子。那样肯定又会花很多时间在这个上面，自然学习、休息、锻炼等等有趣的事情的时间就这么被压缩了，生活只剩下了一大片碎片时间。而自身的实践证明，零零碎碎的两个小时，还比不上连续的二十分钟来得有效率。更自然而然地，我也就什么事都做不好了。周而复始，陷入死循环。其实生活中这样的死循环比比皆是。</p>
+<p>记得高中那时，和舍友说过：我觉得自己现在看事物都会先看到 TA 美好的地方，就比如刚刚你和我说的刚刚迎面走来的女生胖胖的，我却是先看到她那双半月形的会说话的眼睛，真灵动；纵然这几天都阴雨绵绵，我也会因为早上一抹稍纵即逝的阳光而心怀雀跃。</p>
+<p>喜欢广州地铁的那句公益广告词：人的每一步，都在书写自己的历史。</p>
+<p>历史不会重演，但是我却想做一次历史回退。</p>
+<p>我二话不说，打开这二十年自己的版本管理器查看 <code>history</code> ，找到上面说的高中那时的 <code>commit id</code> （版本号）并拷贝，敲入 <code>git reset --hard &lt;commit id&gt;</code>，回车。收到 <code>HEAD is now at &lt;commit id&gt; ...</code> 的响应。</p>
+<p>- 这么巧，刚好回到你在的这里。<br>- 不巧，我在等你。</p>
+<p><strong>Welcome back to 1023, Sweety..</strong></p>
 
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/nodeJS/nodejsSync.html" class="archive-article-date">
-  	<time datetime="2016-07-09T12:19:06.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-07-09</time>
+      <a href="/2016/10/23/my-lucky-1023/" class="archive-article-date">
+  	<time datetime="2016-10-23T05:17:48.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-10-23</time>
 </a>
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/essay/">essay</a></li></ul>
+	</div>
+
       
 
       <div class="clearfix"></div>
@@ -186,6 +200,25 @@
 </article>
 
   
+<nav id="article-nav">
+  
+    <a href="/2016/10/23/how-to-learn-english/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          英语学习计划--单词/文章/听力
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/10/16/js-bind-es5-es6/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">javascript 原生 bind() 的 ES6 + ES5 实现</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 
 
@@ -214,7 +247,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="undefined" data-title="node.js同步获取request请求内容" data-url="https://jothy1023.github.io/nodeJS/nodejsSync.html"></div>
+	<div class="ds-thread" data-thread-key="my-lucky-1023" data-title="相信自己的能力，喜欢自己的人生" data-url="https://jothy1023.github.io/2016/10/23/my-lucky-1023/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -255,9 +288,9 @@
 		mathjax: false,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
