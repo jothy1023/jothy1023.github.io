@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content="bqaGHTZqNu" />
+  <meta name="google-site-verification" content="yMGvBt7A2j_hf88oQbaQ3jysquh7hz3P5JL-nrRMCYU" />
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Tag: nodejs,请求对象,事件循环,I/O观察者,单线程,I/O线程池 | Jothy AdoreLife..</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="踩着七月的尾巴 ^ ^First of all之前一提起 node 的异步 I/O ，总是脑海里有个大概的轮廓，但是描述出来的话需要比较大的篇幅，不够有条理，对于事件循环、单线程等的参与也没那么清晰，所以今天想理顺下整个过程，朴灵大大的《深入浅出NodeJS》讲得很详细很清楚，只不过对于我这种计算机底层基础不够扎实的人来说，还是需要翻成大白话比较好理解记忆。如果有说得不对的地方请帮忙指正。^^首先">
+<meta property="og:type" content="website">
+<meta property="og:title" content="超易懂！NodeJS异步I/O的实现过程">
+<meta property="og:url" content="https://jothy1023.github.io/nodeJS/nodejs-async-io.html">
+<meta property="og:site_name" content="Jothy AdoreLife..">
+<meta property="og:description" content="踩着七月的尾巴 ^ ^First of all之前一提起 node 的异步 I/O ，总是脑海里有个大概的轮廓，但是描述出来的话需要比较大的篇幅，不够有条理，对于事件循环、单线程等的参与也没那么清晰，所以今天想理顺下整个过程，朴灵大大的《深入浅出NodeJS》讲得很详细很清楚，只不过对于我这种计算机底层基础不够扎实的人来说，还是需要翻成大白话比较好理解记忆。如果有说得不对的地方请帮忙指正。^^首先">
+<meta property="og:updated_time" content="2016-10-23T10:41:14.117Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="超易懂！NodeJS异步I/O的实现过程">
+<meta name="twitter:description" content="踩着七月的尾巴 ^ ^First of all之前一提起 node 的异步 I/O ，总是脑海里有个大概的轮廓，但是描述出来的话需要比较大的篇幅，不够有条理，对于事件循环、单线程等的参与也没那么清晰，所以今天想理顺下整个过程，朴灵大大的《深入浅出NodeJS》讲得很详细很清楚，只不过对于我这种计算机底层基础不够扎实的人来说，还是需要翻成大白话比较好理解记忆。如果有说得不对的地方请帮忙指正。^^首先">
+  
+    <link rel="alternative" href="/atom.xml" title="Jothy AdoreLife.." type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/assets/favicon.png">
+  
+  <script src="/style.js"></script>
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="https://jothy1023.github.io/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">四月</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">人间四月芳菲尽，山寺桃花始盛开</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页菌</a></li>
+	        
+				<li><a href="/nodeJS">NodeJS</a></li>
+	        
+				<li><a href="/essay">随笔</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">Articles </a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)"> Tags </a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)"> Me</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/jothy1023" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="http://weibo.com/jothy1023" title="weibo">weibo</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">四月</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="https://jothy1023.github.io/avatar.png" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">四月</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">人间四月芳菲尽，山寺桃花始盛开</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页菌</a></li>
+		        
+					<li><a href="/nodeJS">NodeJS</a></li>
+		        
+					<li><a href="/essay">随笔</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/jothy1023" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/jothy1023" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      超易懂！NodeJS异步I/O的实现过程
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="踩着七月的尾巴"><a href="#踩着七月的尾巴" class="headerlink" title="踩着七月的尾巴 ^ ^"></a>踩着七月的尾巴 ^ ^</h3><h4 id="First-of-all"><a href="#First-of-all" class="headerlink" title="First of all"></a>First of all</h4><p>之前一提起 node 的异步 I/O ，总是脑海里有个大概的轮廓，但是描述出来的话需要比较大的篇幅，不够有条理，对于事件循环、单线程等的参与也没那么清晰，所以今天想理顺下整个过程，朴灵大大的《深入浅出NodeJS》讲得很详细很清楚，只不过对于我这种计算机底层基础不够扎实的人来说，还是需要翻成大白话比较好理解记忆。如果有说得不对的地方请帮忙指正。^^<br>首先明确下，我们讨论的是从肉眼可见的 javascript 代码调用至内核执行完 I/O 操作到最终回调函数执行的过程。  </p>
+<h4 id="Process"><a href="#Process" class="headerlink" title="Process"></a>Process</h4><p>大概的过程应该是这样子的：</p>
+<ol>
+<li>首先是 JS 代码发起异步调用，这时候会创建一个请求对象，我们姑且称为 R ， R 中封装了 JS 层传入的参数以及当前的方法，回调函数封装在 cocomplete_sym 属性上。</li>
+<li>R 封装完毕后，就调用相关方法将 R 推入线程池中执行。（然后推进去之后咧，JS 线程就返回去继续阅读代码并且重复1-2的操作）</li>
+<li>接着我们来到线程池，刚刚 R 封装的 I/O 操作就在这儿等待执行，（无论它是否阻塞 I/O，我们的 JS 线程都已经回去啦～所以异步的目的 get！）</li>
+<li>然后 I/O 操作就依赖于相应操作系统执行啦～执行完成后，结果会存储在 R 的 result 属性上，然后通知内核：我的操作已经完成啦！并把线程归还给线程池。</li>
+<li>这其实与上一个步骤没有绝对的先后关系，而是同时执行的。伟大的事件循环就粗现在这儿啦！事件循环中专门负责检查时间状态的 I/O 观察者会检查线程池中是否有已完成的请求。若有，则取出它的 cocomplete_sym 属性作为方法，result 属性作为参数，加入到观察者的队列中。事件循环每次 Tick 检查队列，发现有事件就取出事件及其相关的回调函数并执行它，也就达到了调用前面传入的回调函数的目的，回调函数最终还是回到 JS 线程中执行。</li>
+</ol>
+<h4 id="Know-More"><a href="#Know-More" class="headerlink" title="Know More"></a>Know More</h4><ol>
+<li>关于单、多线程：我们常说的 NodeJS 的单线程其实指的是 node 保留了 javascript 在浏览器中的单线程特点。只有 JS 是单线程的，所以从 JS 发起调用到将请求对象推入线程池的过程不是并行的；而 node 本身是多线程的，所以才能在线程池中多线程并行执行 I/O 操作。</li>
+<li>不同操作系统的实现：Windows 下的线程池由内核（IOCP）提供，因此推入线程池及取出已完成 I/O 操作都要由 IOCP 完成；而 *nix 下，线程池直接就由 libuv 实现，相应的过程由 epoll 完成。</li>
+<li>关于事件循环：事件循环其实就类似一个 while 循环，每一次循环是一个 Tick，每个 Tick 观察者都会检查是否队列中是否有事件，有的话就取出事件及其相应的回调函数并执行。事件循环除了可以处理以上的异步 I/O 之外，也可以处理 node 中其他异步非 I/O 的 API。原理相同，只是少了 I/O 操作相关的步骤而已。</li>
+<li>事件驱动：也就是以主循环+事件触发的方式运行程序。即前面的事件循环与观察者检查是否已完成，并将已完成的加入队列，等待事件循环取出并处理的方式。</li>
+</ol>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/nodeJS/nodejs-async-io.html" class="archive-article-date">
+  	<time datetime="2016-07-31T05:17:48.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-07-31</time>
+</a>
+      
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="undefined" data-title="超易懂！NodeJS异步I/O的实现过程" data-url="https://jothy1023.github.io/nodeJS/nodejs-async-io.html"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"jothy1023"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 四月
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: false,
+		isArchive: false,
+		isTag: true,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/ECMAScript/" style="font-size: 10px;">ECMAScript</a> <a href="/tags/Promise/" style="font-size: 10px;">Promise</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Vuex/" style="font-size: 10px;">Vuex</a> <a href="/tags/actions/" style="font-size: 10px;">actions</a> <a href="/tags/apply/" style="font-size: 10px;">apply</a> <a href="/tags/bind/" style="font-size: 20px;">bind</a> <a href="/tags/call/" style="font-size: 10px;">call</a> <a href="/tags/es2015/" style="font-size: 10px;">es2015</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/es7/" style="font-size: 10px;">es7</a> <a href="/tags/getters/" style="font-size: 10px;">getters</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/modules/" style="font-size: 10px;">modules</a> <a href="/tags/mutations/" style="font-size: 10px;">mutations</a> <a href="/tags/nodejs/" style="font-size: 20px;">nodejs</a> <a href="/tags/request/" style="font-size: 10px;">request</a> <a href="/tags/state/" style="font-size: 10px;">state</a> <a href="/tags/this/" style="font-size: 10px;">this</a> <a href="/tags/underscore/" style="font-size: 10px;">underscore</a> <a href="/tags/vuejs/" style="font-size: 10px;">vuejs</a> <a href="/tags/入门/" style="font-size: 10px;">入门</a> <a href="/tags/全选/" style="font-size: 10px;">全选</a> <a href="/tags/函数封装/" style="font-size: 10px;">函数封装</a> <a href="/tags/分页/" style="font-size: 10px;">分页</a> <a href="/tags/同步/" style="font-size: 10px;">同步</a> <a href="/tags/异步/" style="font-size: 10px;">异步</a> <a href="/tags/搜索/" style="font-size: 10px;">搜索</a> <a href="/tags/数据判断/" style="font-size: 10px;">数据判断</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a>
+    			</div>
+    	</section>
+    
+
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">我说我萌萌哒&lt;br&gt;你信吗？</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
