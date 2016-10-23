@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jothy1023.github.io/essay/index.html</loc>
+    
+    <lastmod>2016-10-23T10:52:17.420Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jothy1023.github.io/nodeJS/nodejsSync.html</loc>
     
     <lastmod>2016-10-23T10:49:51.610Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>https://jothy1023.github.io/nodeJS/index.html</loc>
     
     <lastmod>2016-10-23T10:49:42.340Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jothy1023.github.io/essay/index.html</loc>
-    
-    <lastmod>2016-10-23T10:49:36.084Z</lastmod>
     
   </url>
   
