@@ -114,7 +114,6 @@
 
     
     
-    
   <url>
     <loc>https://jothy1023.github.io/2016/07/28/thisInJS/</loc>
     <lastmod>2016-10-11T05:41:21.285Z</lastmod>
