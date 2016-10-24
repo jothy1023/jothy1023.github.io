@@ -1,7 +1,7 @@
 ---
 title: node.js同步获取request请求内容
 date: 2016-07-09 20:19:06
-tag: [nodejs, request, Promise, 同步, 异步]
+tag: [nodejs, 同步, 异步]
 ---
 &emsp;nodejs的异步执行给我们的编程带来了数不尽的好处，以至于我已经习惯了异步编程，某一次在执行request请求想要将其返回的body内容体传到request函数外时，发现怎么也获取不了，由于对node理解的不够深入透彻，我首先怀疑的竟然是**会不会request不支持返回操作 or 难道操作仅在函数作用域内有效**，后来才搞明白是异步执行惹的事儿，取值那会儿其实还没赋值呢。现在想想自己还是too naive..
 

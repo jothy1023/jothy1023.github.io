@@ -1,7 +1,7 @@
 ---
 title: underscore源码解析之类型判断函数
 date: 2016-07-13 18:06:56
-tag: [underscore, 源码, 函数封装, 数据判断]
+tag: [underscore, 源码]
 ---
 &emsp;首先将内置对象的原型链以及内置对象原型中的常用方法缓存在局部变量中
 

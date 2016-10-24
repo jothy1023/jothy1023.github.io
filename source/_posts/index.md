@@ -1,7 +1,7 @@
 ---
 title: Vuex 入门
-date: 2016-08-31 13:17:48
-tag: [Vue, Vuex, state, actions, getters, mutations, modules, 入门]
+date: 2016-10-05 13:17:48
+tag: [Vue, Vuex]
 ---
 
 ### Vuex 是一个专门为 Vue.js 应用所设计的集中式状态管理架构 .  
@@ -12,7 +12,7 @@ tag: [Vue, Vuex, state, actions, getters, mutations, modules, 入门]
 #### State
 Vuex 使用了单状态树（single state tree），一个 store 对象就存储了整个应用层的状态。它让我们可以更方便地定位某一具体的状态，并且在调试时能简单地获取到当前整个应用的快照。 
 - 先埋个伏笔。Vuex 使用的这种 single state tree 与 modularity 模块化是不冲突的，问题是，如何将 state 与 mutation 分到子模块中？
-- 要使用 store ，首先必须`Vue.user(Vuex)`，然后将 store `const store = new Vuex.store()` inject 定义到 Vue 实例 app 中`new Vue({store})`，实现从根组件注入到所有子组件中，接着就可以在子组件中使用 `this.$store` 调用了。
+- 要使用 store ，首先必须`Vue.use(Vuex)`，然后将 store `const store = new Vuex.store()` inject 定义到 Vue 实例 app 中`new Vue({store})`，实现从根组件注入到所有子组件中，接着就可以在子组件中使用 `this.$store` 调用了。
 - 当一个组件需要使用多个某 store 的状态属性或 getters ，可以使用 shared helper —— 共享帮手 `mapState`，它会返回一个对象 。
 
 ```js

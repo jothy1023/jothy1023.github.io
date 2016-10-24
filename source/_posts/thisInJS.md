@@ -1,7 +1,7 @@
 ---
 title: javascript中函数的this指向以及apply/call/bind函数的联系与区别
 date: 2016-07-28 10:36:09
-tag: [javascript, this, apply, call, bind, nodejs]
+tag: [javascript, nodejs]
 ---
 
 ### 联系  
