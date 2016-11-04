@@ -196,6 +196,7 @@
 <p>第一部分是 Header。首先声明一个 JSON 对象，对象里有一个 type 属性，值为 JWT ，以及 alg 属性，值为 HS256，表明最终使用的加密算法是 HS256。</p>
 <p>第二部分是 Payload Claim。这一部分被定义为实体的状态，就像 token 自身附加元数据一样，claim 包含我们想要传输的信息，以及用于服务器验证的信息，一般有 reserved/public/private 三类。</p>
 <p>第三部分是 Signature。它由前面在 Header 指定的算法 HS256 加密两个参数构成，第一个参数是<code>经过编码的 Header 与经过编码的 Payload 通过 . 连接之后的字符串</code>，第二个参数是生成的密钥，会由服务器保存。每次服务器接收到 token 之后，也是先解密出用于验证的用户信息以及密钥，再与自己保存的密钥对比是否相同，以此来验证用户的身份。</p>
+<p>写完这么一大篇真是好累…还想继续深挖一下 JWT 具体的应用、服务端如何验证、JWT 使用 cookie 存储好还是 HTML5 Web Storage 好的，剩下的只能留在下回分解啦。。</p>
 <p>感谢以下参考文章：<br><a href="https://jwt.io/introduction/" target="_blank" rel="external">Json Web Token Introduction</a><br><a href="https://jwt.io/introduction/" target="_blank" rel="external">Json Web Token Introduction</a><br><a href="http://blog.csdn.net/jmilk/article/details/50461577" target="_blank" rel="external">深入RESTful无状态原则</a></p>
 
       
