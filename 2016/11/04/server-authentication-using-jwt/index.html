@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content="bqaGHTZqNu" />
+  <meta name="google-site-verification" content="yMGvBt7A2j_hf88oQbaQ3jysquh7hz3P5JL-nrRMCYU" />
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Server 端的认证——拥抱 JWT（一） | Jothy AdoreLife..</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="What is Json Web Token根据官网的定义，JWT 是一套开放的标准（RFC 7519），它定义了一套简洁的（compact）、自包含的（self-contained）方案，来让我们安全地在客户端和服务器之间传递 JSON 格式的信息。
+Advantages
+体积小，因而传输速度快
+传输方式多样，可以通过 URL/POST 参数/HTTP 头部 等方式传输
+严谨的结构化。它自身（在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Server 端的认证——拥抱 JWT（一）">
+<meta property="og:url" content="https://jothy1023.github.io/2016/11/04/server-authentication-using-jwt/index.html">
+<meta property="og:site_name" content="Jothy AdoreLife..">
+<meta property="og:description" content="What is Json Web Token根据官网的定义，JWT 是一套开放的标准（RFC 7519），它定义了一套简洁的（compact）、自包含的（self-contained）方案，来让我们安全地在客户端和服务器之间传递 JSON 格式的信息。
+Advantages
+体积小，因而传输速度快
+传输方式多样，可以通过 URL/POST 参数/HTTP 头部 等方式传输
+严谨的结构化。它自身（在">
+<meta property="og:image" content="http://ac-Myg6wSTV.clouddn.com/055d6a84b0aef29266e5.png">
+<meta property="og:updated_time" content="2016-11-04T13:26:26.077Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Server 端的认证——拥抱 JWT（一）">
+<meta name="twitter:description" content="What is Json Web Token根据官网的定义，JWT 是一套开放的标准（RFC 7519），它定义了一套简洁的（compact）、自包含的（self-contained）方案，来让我们安全地在客户端和服务器之间传递 JSON 格式的信息。
+Advantages
+体积小，因而传输速度快
+传输方式多样，可以通过 URL/POST 参数/HTTP 头部 等方式传输
+严谨的结构化。它自身（在">
+<meta name="twitter:image" content="http://ac-Myg6wSTV.clouddn.com/055d6a84b0aef29266e5.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Jothy AdoreLife.." type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/assets/favicon.png">
+  
+  <script src="/style.js"></script>
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="https://jothy1023.github.io/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">四月</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">人间四月芳菲尽，山寺桃花始盛开</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页菌</a></li>
+	        
+				<li><a href="/tags/nodejs">NodeJS</a></li>
+	        
+				<li><a href="/tags/essay">随笔</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">Articles </a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)"> Tags </a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)"> Me</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/jothy1023" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="http://weibo.com/jothy1023" title="weibo">weibo</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">四月</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="https://jothy1023.github.io/avatar.png" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">四月</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">人间四月芳菲尽，山寺桃花始盛开</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页菌</a></li>
+		        
+					<li><a href="/tags/nodejs">NodeJS</a></li>
+		        
+					<li><a href="/tags/essay">随笔</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/jothy1023" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/jothy1023" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-server-authentication-using-jwt" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Server 端的认证——拥抱 JWT（一）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="What-is-Json-Web-Token"><a href="#What-is-Json-Web-Token" class="headerlink" title="What is Json Web Token"></a>What is Json Web Token</h4><p>根据官网的定义，JWT 是一套开放的标准（RFC 7519），它定义了一套简洁的（compact）、自包含的（self-contained）方案，来让我们安全地在客户端和服务器之间传递 JSON 格式的信息。</p>
+<h4 id="Advantages"><a href="#Advantages" class="headerlink" title="Advantages"></a>Advantages</h4><ul>
+<li>体积小，因而传输速度快</li>
+<li>传输方式多样，可以通过 URL/POST 参数/HTTP 头部 等方式传输</li>
+<li>严谨的结构化。它自身（在 payload 中）就包含了所有与用户相关的验证消息，如用户可访问路由、访问有效期等信息，服务器无需再去连接数据库验证信息的有效性，并且 payload 支持为你的应用而定制化</li>
+<li>支持跨域验证，多应用于单点登录。</li>
+</ul>
+<blockquote>
+<p>单点登录（Single Sign On）：在多个应用系统中，用户只需登陆一次，就可以访问所有相互信任的应用。</p>
+</blockquote>
+<h4 id="WHY-JWT"><a href="#WHY-JWT" class="headerlink" title="WHY JWT"></a>WHY JWT</h4><p>除了上面说到的优点之外，相比传统的服务端验证， JWT 还有以下优点。</p>
+<ul>
+<li>充分依赖无状态 API ，契合 RESTful 设计原则</li>
+<li>易于实现 CDN，将静态资源分布式管理</li>
+<li>验证解耦，无需使用特定的身份验证方案， token 可以在任何地方生成</li>
+<li>比 cookie 更支持原生移动端应用</li>
+</ul>
+<ol>
+<li>关于状态<br>首先我们先看一下，什么是状态，什么是有状态与无状态。</li>
+</ol>
+<blockquote>
+<p>状态：请求的状态是 client 与 server 交互过程中，保存下来的相关信息，客户端的保存在 page/request/session/application 或者全局作用域中，而 server 的一般存在 session 中。</p>
+<p>有状态 API：server 保存了 client 的请求状态， server 会通过 client 传递的 sessionID 在其 session 作用域内找到之前交互的信息并应答。</p>
+<p>无状态 API：无状态是 RESTful 架构设计的一个非常主要的原则。无状态 API 的每一个请求都是独立的，它要求由客户端保存所有需要的认证信息，每次发请求都要带上自己的状态，以 url 的形式提交包含了 cookies 等状态的数据。</p>
+</blockquote>
+<p>JWT 就很好地体现了无状态原则。用户登陆之后，服务器会返回给他一个 token，由他保存在本地，在这之后的对服务器的访问都要带上这串 JWT ,来获得访问服务器相关路由、服务及资源的权限。比如单点登录就比较多地使用了 JWT，因为它的体积小，并且简单处理（使用 HTTP 头带上 Bearer 属性 + token ）就可以支持跨域操作。</p>
+<ol>
+<li><p>分布式管理<br>在传统的 session 验证中，服务端必须保存 session ID，用于与用户传过来的 cookie 验证。而在一开始保存 session ID 时， 只会保存在一台服务器上，所以只能由一个 server 应答，就算其他服务器有空闲也无法应答，因此也利用不到分布式服务器的优点。<br>而 JWT 依赖的是在客户端本地保存验证信息，不需要利用服务器保存的信息来验证，所以任意一台服务器都可以应答，服务器的资源也被较好地利用。</p>
+</li>
+<li><p>验证解耦<br>只要拥有生成 token 所需的验证信息，在何处都可以调用 token 生成接口，无需繁琐的耦合的验证操作，可谓是一次生成，永久使用。</p>
+</li>
+<li><p>对原生应用的支持（我对移动端开发不够深入，这点不是很清楚）<br>原生的移动应用对 cookie 与 session 的支持不够好，而对 token 的方式支持较好。</p>
+</li>
+</ol>
+<p>除此之外，JWT 的可靠的结构化的标准，也是我们选择它的一大原因。特别是使用 nodejs 开发时，嗯，node 大法好！</p>
+<h4 id="client-使用-JWT-与-server-交互的过程"><a href="#client-使用-JWT-与-server-交互的过程" class="headerlink" title="client 使用 JWT 与 server 交互的过程"></a>client 使用 JWT 与 server 交互的过程</h4><p><img src="http://ac-Myg6wSTV.clouddn.com/055d6a84b0aef29266e5.png" alt="image"></p>
+<p>首先，拥有某网站账号的某 client 使用自己的账号密码发送 post 请求 login，由于这是首次接触，server 会校验账号与密码是否合法，如果一致，则根据密钥生成一个 token 并返回，client 收到这个 token 并保存在本地的 localStorage。在这之后，需要访问一个受保护的路由或资源时，而只要附加上你保存在本地的 token（通常使用 Bearer 属性放在 Header 的 Authorization 属性中），server 会检查这个 token 是否仍有效，以及其中的校验信息是否正确，再做出相应的响应。</p>
+<h4 id="JWT-由三部分组成：Header-Payload-Signature"><a href="#JWT-由三部分组成：Header-Payload-Signature" class="headerlink" title="JWT 由三部分组成：Header/Payload/Signature"></a>JWT 由三部分组成：Header/Payload/Signature</h4><figure class="highlight lasso"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Header</span></div><div class="line">&#123;</div><div class="line">  <span class="string">"alg"</span>: <span class="string">"HS256"</span>,</div><div class="line">  <span class="string">"type"</span>: <span class="string">"JWT"</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// Payload</span></div><div class="line">&#123;</div><div class="line">  <span class="comment">// reserved claims</span></div><div class="line">  <span class="string">"iss"</span>: <span class="string">"a.com"</span>,</div><div class="line">  <span class="string">"exp"</span>: <span class="string">"1d"</span>,</div><div class="line">  <span class="comment">// public claims</span></div><div class="line">  <span class="string">"http://a.com"</span>: <span class="literal">true</span>,</div><div class="line">  <span class="comment">// private claims</span></div><div class="line">  <span class="string">"company"</span>: <span class="string">"A"</span>,</div><div class="line">  <span class="string">"awesome"</span>: <span class="literal">true</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// $Signature</span></div><div class="line">HS256(Base64(<span class="keyword">Header</span>) + <span class="string">"."</span> + Base64(Payload), secretKey)</div><div class="line"></div><div class="line">JWT = &#123;Base64(<span class="keyword">Header</span>), Base64(Payload), $Signature&#125;</div></pre></td></tr></table></figure>
+<p>第一部分是 Header。首先声明一个 JSON 对象，对象里有一个 type 属性，值为 JWT ，以及 alg 属性，值为 HS256，表明最终使用的加密算法是 HS256。</p>
+<p>第二部分是 Payload Claim。这一部分被定义为实体的状态，就像 token 自身附加元数据一样，claim 包含我们想要传输的信息，以及用于服务器验证的信息，一般有 reserved/public/private 三类。</p>
+<p>第三部分是 Signature。它由前面在 Header 指定的算法 HS256 加密两个参数构成，第一个参数是<code>经过编码的 Header 与经过编码的 Payload 通过 . 连接之后的字符串</code>，第二个参数是生成的密钥，会由服务器保存。每次服务器接收到 token 之后，也是先解密出用于验证的用户信息以及密钥，再与自己保存的密钥对比是否相同，以此来验证用户的身份。</p>
+<p>感谢以下参考文章：<br><a href="https://jwt.io/introduction/" target="_blank" rel="external">Json Web Token Introduction</a><br><a href="https://jwt.io/introduction/" target="_blank" rel="external">Json Web Token Introduction</a><br><a href="http://blog.csdn.net/jmilk/article/details/50461577" target="_blank" rel="external">深入RESTful无状态原则</a></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/11/04/server-authentication-using-jwt/" class="archive-article-date">
+  	<time datetime="2016-11-04T10:06:56.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-04</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jwt/">jwt</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2016/10/23/my-lucky-1023/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">相信自己的能力，喜欢自己的人生</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="server-authentication-using-jwt" data-title="Server 端的认证——拥抱 JWT（一）" data-url="https://jothy1023.github.io/2016/11/04/server-authentication-using-jwt/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"jothy1023"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 四月
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Vuex/" style="font-size: 10px;">Vuex</a> <a href="/tags/english/" style="font-size: 10px;">english</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a> <a href="/tags/es7/" style="font-size: 10px;">es7</a> <a href="/tags/essay/" style="font-size: 20px;">essay</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/jwt/" style="font-size: 10px;">jwt</a> <a href="/tags/nodejs/" style="font-size: 20px;">nodejs</a> <a href="/tags/underscore/" style="font-size: 10px;">underscore</a> <a href="/tags/vuejs/" style="font-size: 10px;">vuejs</a> <a href="/tags/同步/" style="font-size: 10px;">同步</a> <a href="/tags/异步/" style="font-size: 10px;">异步</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a>
+    			</div>
+    	</section>
+    
+
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">我说我萌萌哒&lt;br&gt;你信吗？</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

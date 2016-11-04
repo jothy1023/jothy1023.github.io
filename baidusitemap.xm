@@ -4,6 +4,23 @@
 
     
   <url>
+    <loc>https://jothy1023.github.io/2016/11/04/server-authentication-using-jwt/</loc>
+    <lastmod>2016-11-04T13:26:26.077Z</lastmod>
+    <data>
+        <display>
+        <title>Server 端的认证——拥抱 JWT（一）</title>
+        <pubTime>2016-11-04T10:06:56.000Z</pubTime>
+        
+        <tag>jwt</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://jothy1023.github.io/2016/10/01/vueList/</loc>
     <lastmod>2016-10-23T11:00:15.421Z</lastmod>
     <data>

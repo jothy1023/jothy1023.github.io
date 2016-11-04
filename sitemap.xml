@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jothy1023.github.io/2016/11/04/server-authentication-using-jwt/</loc>
+    
+    <lastmod>2016-11-04T13:26:26.077Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jothy1023.github.io/2016/10/01/vueList/</loc>
     
     <lastmod>2016-10-23T11:00:15.421Z</lastmod>
