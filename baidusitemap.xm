@@ -5,7 +5,7 @@
     
   <url>
     <loc>https://jothy1023.github.io/2016/11/04/server-authentication-using-jwt/</loc>
-    <lastmod>2016-11-04T13:28:58.452Z</lastmod>
+    <lastmod>2016-11-05T03:44:48.675Z</lastmod>
     <data>
         <display>
         <title>Server 端的认证——拥抱 JWT（一）</title>
