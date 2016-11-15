@@ -80,6 +80,7 @@ JWT 就很好地体现了无状态原则。用户登陆之后，服务器会返�
 // $Signature
 HS256(Base64(Header) + "." + Base64(Payload), secretKey)
 
+
 JWT = {Base64(Header), Base64(Payload), $Signature}
 ```
 
@@ -94,5 +95,5 @@ JWT = {Base64(Header), Base64(Payload), $Signature}
 
 感谢以下参考文章： 
 [Json Web Token Introduction](https://jwt.io/introduction/)
-[Json Web Token Introduction](https://jwt.io/introduction/)
+[使用Json Web Token设计Passport系统](https://yq.aliyun.com/articles/59043)
 [深入RESTful无状态原则](http://blog.csdn.net/jmilk/article/details/50461577)
